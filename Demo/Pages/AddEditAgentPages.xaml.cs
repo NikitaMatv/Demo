@@ -45,14 +45,23 @@ namespace Demo.Pages
 
         private void SaveBt_Click(object sender, RoutedEventArgs e)
         {
-            if(contextagent.ID == 0)
+            try
             {
-                App.DB.Agent.Add(contextagent);
-            }
-         
+                if (contextagent.ID == 0)
+                {
+                    App.DB.Agent.Add(contextagent);
+                }
+
                 App.DB.SaveChanges();
-            
-            NavigationService.Navigate(new AgentListPage());
+
+                NavigationService.Navigate(new AgentListPage());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка {ex.Message}");
+                return;
+
+            }
         }
 
         private void CanselBt_Click(object sender, RoutedEventArgs e)
